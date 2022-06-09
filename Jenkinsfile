@@ -1,9 +1,8 @@
 pipeline {
+    agent none
     stages {
         stage('Build') {
-            agent {
-                label "aws"
-            }
+            node('aws')
             steps {
                 // Get some code from a GitHub repository
                 withCredentials([usernamePassword(credentialsId:"docker-hub",usernameVariable:"username",passwordVariable:"pass")]){
@@ -14,9 +13,7 @@ pipeline {
             }
         }  
         stage ('deploy'){
-            agent {
-                label "private-ec2"
-            }
+            node('private-ec2')
             steps{
                 withCredentials([usernamePassword(credentialsId:"docker-hub",usernameVariable:"username",passwordVariable:"pass")]){
                 sh 'docker login -u ${username} -p ${pass}'
