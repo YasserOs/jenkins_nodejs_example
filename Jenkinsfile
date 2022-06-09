@@ -1,5 +1,4 @@
 pipeline {
-    agent {label 'private-ec2'}
     stages {
         stage('Build') {
             agent {
