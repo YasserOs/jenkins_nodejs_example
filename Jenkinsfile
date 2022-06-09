@@ -6,7 +6,7 @@ pipeline {
             steps {
                 node('aws'){
                     withCredentials([usernamePassword(credentialsId:"docker-hub",usernameVariable:"username",passwordVariable:"pass")]){
-                    sh 'docker build . -t ${username}/jenkins_sprints:v1.0'
+                    sh 'docker build . -f dockerfile -t ${username}/jenkins_sprints:v1.0'
                     sh 'docker login -u ${username} -p ${pass}'
                     sh 'docker push ${username}/jenkins_sprints:v1.0'
                     }
