@@ -21,8 +21,6 @@ pipeline {
             
             steps{
                 node('private-ec2'){
-                    git branch: 'rds_redis', 
-                         url: "https://github.com/YasserOs/jenkins_nodejs_example"
                     withCredentials([usernamePassword(credentialsId:"docker-hub",usernameVariable:"username",passwordVariable:"pass")]){
                     sh 'docker login -u ${username} -p ${pass}'
                     sh 'docker pull ${username}/jenkins_sprints:v1.0'
